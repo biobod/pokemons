@@ -30,9 +30,6 @@ const PokemonCard = ({ classes, name, image }) => {
           image={image}
           title="Contemplative Reptile"
         />
-        <CardContent>
-          Some text
-        </CardContent>
         <CardActions>
           <Button size="small" color="primary">
             Learn More

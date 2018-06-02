@@ -2,6 +2,11 @@ import { combineReducers } from 'redux'
 
 export default (state, action) => {
   switch (action.type) {
+    case 'GET_POKEMON':
+      return {
+        ...state,
+        isLoading: true,
+      }
     case 'GET_POKEMON_SUCCESS':
       return {
         ...state,
@@ -9,11 +14,13 @@ export default (state, action) => {
         pokemon: action.data,
         currentPokemonId: action.id,
         error: false,
+        isLoading: false,
       }
     case 'GET_POKEMON_ERROR': return {
       ...state,
       pokemon: null,
-      error: true
+      error: true,
+      isLoading: false,
     }
     default: return state
   }

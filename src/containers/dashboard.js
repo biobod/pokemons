@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import PokemonCard from './pokemonCard'
 import { fetchPokemon } from './../redux/actions'
-import ArrowWrapper from './cardArrowWrapper'
+import ButtonsSection from './buttonsSection'
 
 class Dashboard extends Component {
   componentWillMount = () => {
@@ -22,6 +22,7 @@ class Dashboard extends Component {
   }
   
   render() {
+    console.log('render')
     const {
       showPreviousPokemon, showNextPokemon,
       props: { pokemon, isError }
@@ -31,18 +32,29 @@ class Dashboard extends Component {
     }
     return (
       <div>
-        <ArrowWrapper showNextPokemon={showNextPokemon} showPreviousPokemon={showPreviousPokemon}>
-          {pokemon ? <PokemonCard
-          name={pokemon.name}
-          image={pokemon.sprites.front_default}
-          />
-        : <span>loading</span>
+        <ButtonsSection
+          showNextPokemon={showNextPokemon}
+          showPreviousPokemon={showPreviousPokemon}
+        >
+          {pokemon
+            ? <PokemonCard
+              name={pokemon.name}
+              image={pokemon.sprites.front_default}
+            />
+            : <span>loading</span>
       }
-        </ArrowWrapper>
+        </ButtonsSection>
       </div>
     )
   }
 }
+
+Dashboard.propTypes = {
+  pokemon: PropTypes.shape(),
+  isError: PropTypes.bool,
+  getPokemon: PropTypes.func.isRequired,
+  id: PropTypes.number.isRequired,
+};
 
 export default connect(state => ({
   id: state.currentPokemonId,
