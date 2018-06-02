@@ -1,0 +1,95 @@
+{
+  "env": {
+    "mocha": true
+  },
+  "plugins": [
+    "react",
+    "babel"
+  ],
+  "globals": {
+    "window": true,
+    "document": true,
+    "alert": true
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "paths": [
+          "src",
+          "src/client"
+        ]
+      }
+    }
+  },
+  "parser": "babel-eslint",
+  "extends": "airbnb",
+  "rules": {
+    "react/jsx-no-bind": [
+      2,
+      {
+        "ignoreRefs": true,
+        "allowArrowFunctions": false,
+        "allowBind": false
+      }
+    ],
+    "no-param-reassign": [
+      2,
+      {
+        "props": false
+      }
+    ],
+    "react/jsx-indent-props": 0,
+    "max-len": [
+      2,
+      150,
+      4
+    ],
+    "new-cap": 0,
+    "arrow-parens": 0,
+    "no-trailing-spaces": 0,
+    "react/no-unescaped-entities": 0,
+    "react/require-default-props": 0,
+    "no-plusplus": 0,
+    "no-mixed-operators": 0,
+    "no-underscore-dangle": 0,
+    "no-await-in-loop": 0,
+    "no-restricted-syntax": 0,
+    "no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "next"
+      }
+    ],
+    "comma-dangle": [
+      "error",
+      "only-multiline"
+    ],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
+    ],
+    "react/no-unused-prop-types": [
+      "warn",
+      {
+        "customValidators": [],
+        "skipShapeProps": true
+      }
+    ],
+    "jsx-a11y/no-static-element-interactions": 0,
+    "jsx-a11y/anchor-has-content": 0,
+    "react/no-array-index-key": 0,
+    "jsx-a11y/img-has-alt": 0,
+    "semi": 0,
+    "linebreak-style": 0,
+    "no-use-before-define": 0,
+    "react/no-string-refs": 0,
+    "jsx-a11y/label-has-for": 0,
+    "react/no-find-dom-node": 0,
+    "no-alert": 0
+  }
+}
