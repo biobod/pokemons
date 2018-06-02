@@ -28,7 +28,6 @@ class PokemonCard extends Component {
       showDetails: false,
     }
   }
-  
   static getDerivedStateFromProps(nextProps) {
     const {
       base_experience, weight, stats, types, height
@@ -37,10 +36,10 @@ class PokemonCard extends Component {
       experience: base_experience,
       weight,
       height,
-      stats: stats.map(stat => ({[stat.stat.name]: stat.base_stat, effort: stat.effort})),
+      stats: stats.map(stat => ({ [stat.stat.name]: stat.base_stat, effort: stat.effort })),
       types: types.map(t => t.type.name)
     }
-    return {details}
+    return { details }
   }
   
   showMore = () => {

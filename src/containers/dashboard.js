@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
+import ReactDOM from 'react-dom';
 
 import { connect } from 'react-redux'
 import PokemonCard from './pokemonCard'
@@ -11,6 +12,12 @@ class Dashboard extends Component {
     const { id, getPokemon } = this.props
     getPokemon(id)
   }
+  componentDidMount() {
+    window.addEventListener('wheel', this.listenScrollEvent)
+  }
+  componentWillUnmount() {
+    window.removeEventListener('wheel', this.listenScrollEvent);
+  }
   
   showNextPokemon = () => {
     const { id, getPokemon } = this.props
@@ -19,6 +26,15 @@ class Dashboard extends Component {
   showPreviousPokemon = () => {
     const { id, getPokemon } = this.props
     getPokemon(id - 1)
+  }
+ 
+  listenScrollEvent = (e) => {
+    const { isLoading } = this.props
+    if(e.deltaY > 0 && !isLoading) {
+      this.showPreviousPokemon()
+    } else if (e.deltaY < 0 && !isLoading) {
+      this.showNextPokemon()
+    }
   }
   
   render() {
@@ -57,4 +73,5 @@ export default connect(state => ({
   id: state.currentPokemonId,
   pokemon: state.pokemon,
   isError: state.error,
+  isLoading: state.isLoading,
 }), { getPokemon: fetchPokemon })(Dashboard);
