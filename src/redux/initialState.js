@@ -3,4 +3,5 @@ export default {
   pokemon: null,
   currentPokemonId: 1,
   isLoading: false,
+  pokemonsCount: null,
 }

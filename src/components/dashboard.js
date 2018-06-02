@@ -1,47 +1,55 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types'
-import ReactDOM from 'react-dom';
-
 import { connect } from 'react-redux'
 import PokemonCard from './pokemonCard'
-import { fetchPokemon } from './../redux/actions'
+import { fetchPokemon, fetchPokemonsCount } from './../redux/actions'
 import ButtonsSection from './buttonsSection'
 
 class Dashboard extends Component {
-  componentWillMount = () => {
-    const { id, getPokemon } = this.props
+  componentWillMount() {
+    const { id, getPokemon, getPokemonsCount } = this.props
+    getPokemonsCount()
     getPokemon(id)
   }
   componentDidMount() {
-    window.addEventListener('wheel', this.listenScrollEvent)
+    window.addEventListener('wheel', this.listenScroll)
   }
   componentWillUnmount() {
-    window.removeEventListener('wheel', this.listenScrollEvent);
+    window.removeEventListener('wheel', this.listenScroll);
   }
   
   showNextPokemon = () => {
-    const { id, getPokemon } = this.props
-    getPokemon(+id + 1)
+    const { id, getPokemon, pokemonsCount } = this.props
+    let nextId = +id + 1
+    if (nextId > pokemonsCount) {
+      nextId = 1
+    }
+    getPokemon(nextId)
   }
   showPreviousPokemon = () => {
-    const { id, getPokemon } = this.props
-    getPokemon(id - 1)
+    const { id, getPokemon, pokemonsCount } = this.props
+    let previousId = id - 1
+    if (previousId <= 0) {
+      previousId = pokemonsCount
+    }
+    getPokemon(previousId)
   }
- 
-  listenScrollEvent = (e) => {
+  listenScroll = (e) => {
     const { isLoading } = this.props
-    if(e.deltaY > 0 && !isLoading) {
+    if (isLoading) {
+      return
+    }
+    if (e.deltaY > 0) {
       this.showPreviousPokemon()
-    } else if (e.deltaY < 0 && !isLoading) {
+    } else {
       this.showNextPokemon()
     }
   }
   
   render() {
-    console.log('render')
     const {
       showPreviousPokemon, showNextPokemon,
-      props: { pokemon, isError }
+      props: { pokemon, isError, isLoading }
     } = this
     if (isError) {
       return <div>Sorry, something go wrong</div>
@@ -51,11 +59,9 @@ class Dashboard extends Component {
         <ButtonsSection
           showNextPokemon={showNextPokemon}
           showPreviousPokemon={showPreviousPokemon}
+          isLoading={isLoading}
         >
-          {pokemon
-            ? <PokemonCard pokemon={pokemon} />
-            : <span>loading</span>
-      }
+          {pokemon && <PokemonCard pokemon={pokemon} isLoading={isLoading} />}
         </ButtonsSection>
       </div>
     )
@@ -66,7 +72,10 @@ Dashboard.propTypes = {
   pokemon: PropTypes.shape(),
   isError: PropTypes.bool,
   getPokemon: PropTypes.func.isRequired,
+  getPokemonsCount: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  pokemonsCount: PropTypes.number.isRequired
 };
 
 export default connect(state => ({
@@ -74,4 +83,5 @@ export default connect(state => ({
   pokemon: state.pokemon,
   isError: state.error,
   isLoading: state.isLoading,
-}), { getPokemon: fetchPokemon })(Dashboard);
+  pokemonsCount: state.pokemonsCount,
+}), { getPokemon: fetchPokemon, getPokemonsCount: fetchPokemonsCount })(Dashboard);

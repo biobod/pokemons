@@ -7,12 +7,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import CardHeader from '@material-ui/core/CardHeader';
+import CircularProgress from '@material-ui/core/CircularProgress';
+
 import DetailsSection from './detailsSection'
 
 const styles = {
   card: {
     maxWidth: 345,
     margin: '0 auto',
+    backgroundColor: '#f2f2f2'
   },
   media: {
     height: 0,
@@ -48,28 +51,27 @@ class PokemonCard extends Component {
   }
   
   render() {
-    const { classes, pokemon } = this.props
+    const { classes, pokemon, isLoading } = this.props
     const { details, showDetails } = this.state
    
     return (
-      <div>
-        <Card className={classes.card}>
-          <CardHeader title={pokemon.name} />
-          <CardMedia
+      <Card className={classes.card}>
+        <CardHeader title={isLoading ? 'loading...' : pokemon.name} />
+        {!isLoading && <CardMedia
             className={classes.media}
             image={pokemon.sprites.front_default}
             title="Contemplative Reptile"
-          />
-          <CardContent>
-            {showDetails && <DetailsSection details={details} />}
-          </CardContent>
-          <CardActions>
-            <Button size="small" color="primary" onClick={this.showMore}>
-              {`${showDetails ? 'Hide' : 'Show'} Details`}
-            </Button>
-          </CardActions>
-        </Card>
-      </div>
+        />}
+        <CardContent>
+          {isLoading && <CircularProgress />}
+          {!isLoading && showDetails && <DetailsSection details={details} />}
+        </CardContent>
+        <CardActions>
+          <Button size="small" color="primary" onClick={this.showMore}>
+            {`${showDetails ? 'Hide' : 'Show'} Details`}
+          </Button>
+        </CardActions>
+      </Card>
     );
   }
 }
@@ -79,6 +81,7 @@ PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
     name: PropTypes.string.isRequired,
   }).isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default withStyles(styles)(PokemonCard);
