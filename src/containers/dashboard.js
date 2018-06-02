@@ -37,10 +37,7 @@ class Dashboard extends Component {
           showPreviousPokemon={showPreviousPokemon}
         >
           {pokemon
-            ? <PokemonCard
-              name={pokemon.name}
-              image={pokemon.sprites.front_default}
-            />
+            ? <PokemonCard pokemon={pokemon} />
             : <span>loading</span>
       }
         </ButtonsSection>
