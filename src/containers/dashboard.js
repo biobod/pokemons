@@ -1,37 +1,51 @@
 import React, { Component } from 'react';
-import PokemonCard from './pokemonCard'
+import PropTypes from 'prop-types'
 
-const pokeURL = 'https://pokeapi.co/api/v1/pokemon/3';
-const pokeURL2 = 'https://pokeapi.co/api/v2/pokemon/3/';
+import { connect } from 'react-redux'
+import PokemonCard from './pokemonCard'
+import { fetchPokemon } from './../redux/actions'
+import ArrowWrapper from './cardArrowWrapper'
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      pokemon: null,
-    }
+  componentWillMount = () => {
+    const { id, getPokemon } = this.props
+    getPokemon(id)
   }
-  // componentDidMount = () => {
-  //   fetch('https://pokeapi.co/api/v2/pokedex/1/')
-  //     .then(res => res.json())
-  //     .then(data => this.setState({ pokemons: data }))
-  // }
-  componentDidMount = () => {
-    fetch(pokeURL2)
-      .then(res => res.json())
-      .then(data => this.setState({ pokemon: data }))
+  
+  showNextPokemon = () => {
+    const { id, getPokemon } = this.props
+    getPokemon(+id + 1)
+  }
+  showPreviousPokemon = () => {
+    const { id, getPokemon } = this.props
+    getPokemon(id - 1)
   }
   
   render() {
-    const { pokemon } = this.state
-    console.log(pokemon)
-    return pokemon
-      ? <PokemonCard
-        name={pokemon.name}
-        image={pokemon.sprites.front_default}
-      />
-      : <span>loading</span>
+    const {
+      showPreviousPokemon, showNextPokemon,
+      props: { pokemon, isError }
+    } = this
+    if (isError) {
+      return <div>Sorry, something go wrong</div>
+    }
+    return (
+      <div>
+        <ArrowWrapper showNextPokemon={showNextPokemon} showPreviousPokemon={showPreviousPokemon}>
+          {pokemon ? <PokemonCard
+          name={pokemon.name}
+          image={pokemon.sprites.front_default}
+          />
+        : <span>loading</span>
+      }
+        </ArrowWrapper>
+      </div>
+    )
   }
 }
 
-export default Dashboard;
+export default connect(state => ({
+  id: state.currentPokemonId,
+  pokemon: state.pokemon,
+  isError: state.error,
+}), { getPokemon: fetchPokemon })(Dashboard);

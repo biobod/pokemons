@@ -1,0 +1,1 @@
+export const POKEMON_PATH = 'https://pokeapi.co/api/v2/pokemon'
