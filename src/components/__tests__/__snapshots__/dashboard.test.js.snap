@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard should render correctly 1`] = `
+<div>
+  <div
+    className="ButtonsSection-dashboardWrapper-1"
+  >
+    <div
+      className="ButtonsSection-buttonSection-2"
+    >
+      <button
+        className="MuiButtonBase-root-19 MuiButton-root-3 MuiButton-raised-9"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-4"
+        >
+          Previous
+        </span>
+        <span
+          className="MuiTouchRipple-root-22"
+        />
+      </button>
+      <button
+        className="MuiButtonBase-root-19 MuiButton-root-3 MuiButton-raised-9"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onKeyDown={[Function]}
+        onKeyUp={[Function]}
+        onMouseDown={[Function]}
+        onMouseLeave={[Function]}
+        onMouseUp={[Function]}
+        onTouchEnd={[Function]}
+        onTouchMove={[Function]}
+        onTouchStart={[Function]}
+        tabIndex="0"
+        type="button"
+      >
+        <span
+          className="MuiButton-label-4"
+        >
+          Next
+        </span>
+        <span
+          className="MuiTouchRipple-root-22"
+        />
+      </button>
+    </div>
+  </div>
+</div>
+`;

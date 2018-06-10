@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonsSection should render correctly123 1`] = `
+<ButtonsSection
+  classes={
+    Object {
+      "buttonSection": "ButtonsSection-buttonSection-2",
+      "dashboardWrapper": "ButtonsSection-dashboardWrapper-1",
+    }
+  }
+  showNextPokemon={[Function]}
+  showPreviousPokemon={[Function]}
+>
+  <div>
+    hello
+  </div>
+</ButtonsSection>
+`;

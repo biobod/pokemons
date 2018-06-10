@@ -5,7 +5,7 @@ import PokemonCard from './pokemonCard'
 import { fetchPokemon, fetchPokemonsCount } from './../redux/actions'
 import ButtonsSection from './buttonsSection'
 
-class Dashboard extends Component {
+export class Dashboard extends Component {
   componentWillMount() {
     const { id, getPokemon, getPokemonsCount } = this.props
     getPokemonsCount()
